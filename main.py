@@ -16,12 +16,15 @@ class VistaPrincipal():
 
 	def desplegarDatos(self, departamento):
 		Label(self.ventanaPrincipal, text = departamento.numeroDepto, font = "Helvetica 14").grid(row = departamento.numeroDepto, column = 0)
-		Label(self.ventanaPrincipal, text = "asdf2.\t", font = "Helvetica 14").grid(row = departamento.numeroDepto, column = 1)
-		Label(self.ventanaPrincipal, text = "asdf3", font = "Helvetica 14").grid(row = departamento.numeroDepto, column = 2)
+		Label(self.ventanaPrincipal, text = "Leer fecha de la base\t", font = "Helvetica 14").grid(row = departamento.numeroDepto, column = 1)
+		ttk.Button(self.ventanaPrincipal, text = 'Historial').grid(row = departamento.numeroDepto, column = 2)
+		#if departamento.ocupado:
+			#Button(self.raiz, text='Terminar contrato')
+		#else:
+		ttk.Button(self.ventanaPrincipal, text = 'Rentar').grid(row = departamento.numeroDepto, column = 3)
 
 	def mostrarGUI(self):
 		self.ventanaPrincipal.mainloop()
-
 
 def main():
 	inicializarBase()
