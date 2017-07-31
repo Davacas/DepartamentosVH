@@ -167,34 +167,49 @@ class VistaRentar():
 		VistaPrincipal()
 
 	def guardarDatos(self):
-		conexion = sqlite3.connect("departamentosVH.db")
-		cursor = conexion.cursor()
-		fechaEntrada = self.eDiaEntrada.get() + str(self.eMesEntrada.current() + 1) + self.eAnioEntrada.get()
-		fechaSalida = self.eDiaSalida.get() + str(self.eMesSalida.current() + 1) + self.eAnioSalida.get()
+		# conexion = sqlite3.connect("departamentosVH.db")
+		# cursor = conexion.cursor()
+		fechaEntrada = self.eDiaEntrada.get() + "-" + str(self.eMesEntrada.current() + 1) + "-" +self.eAnioEntrada.get()
+		fechaSalida = self.eDiaSalida.get() + "-" + str(self.eMesSalida.current() + 1) + "-" + self.eAnioSalida.get()
 		try:
-			cursor.execute("""INSERT INTO departamento%d 
-				VALUES(NULL, '%s', %d, '%s', '%s', %d, %f, '%s', %f, %d, '%s', '%s', %d, '%s')""" %(
-					self.numeroDepto,
-					self.eNombre.get(), 
-					int(self.eTelefono.get()), 
-					self.eProcedencia.get(), 
-					self.eIdentificacion.get(),
-					int(self.ePersonas.get()),
-					float(self.eCosto.get()),
-					self.eTipoReservacion.get(), 
-					float(self.eDeposito.get()),
-					int(self.ePagaLuz.current()),
-					fechaEntrada,
-					fechaSalida,
-					1, 
-					"Blablabla")
+			Database().insertarRenta(
+				self.numeroDepto,
+				self.eNombre.get(), 
+				int(self.eTelefono.get()), 
+				self.eProcedencia.get(), 
+				self.eIdentificacion.get(),
+				int(self.ePersonas.get()),
+				float(self.eCosto.get()),
+				self.eTipoReservacion.get(), 
+				float(self.eDeposito.get()),
+				int(self.ePagaLuz.current()),
+				fechaEntrada,
+				fechaSalida,
+				"Blablabla"
 				)
-			conexion.commit()
-			conexion.close()
+			# cursor.execute("""INSERT INTO departamento%d 
+			# 	VALUES(NULL, '%s', %d, '%s', '%s', %d, %f, '%s', %f, %d, '%s', '%s', %d, '%s')""" %(
+			# 		self.numeroDepto,
+			# 		self.eNombre.get(), 
+			# 		int(self.eTelefono.get()), 
+			# 		self.eProcedencia.get(), 
+			# 		self.eIdentificacion.get(),
+			# 		int(self.ePersonas.get()),
+			# 		float(self.eCosto.get()),
+			# 		self.eTipoReservacion.get(), 
+			# 		float(self.eDeposito.get()),
+			# 		int(self.ePagaLuz.current()),
+			# 		fechaEntrada,
+			# 		fechaSalida,
+			# 		1, 
+			# 		"Blablabla")
+			# 	)
+			# conexion.commit()
+			# conexion.close()
 		except Exception as ex:
 			print("Ocurrió el siguiente error al guardar en la base de datos:")
 			print(ex)
-			conexion.rollback()
+			#conexion.rollback()
 
 		self.ventanaRentar.destroy()
 		VistaPrincipal()
@@ -230,7 +245,7 @@ class VistaHistorial():
 		conexion = sqlite3.connect("departamentosVH.db")
 		cursor = conexion.cursor()
 		try:
-			cursor.execute("SELECT * FROM departamento%d ORDER BY numeroDepto DESC" %(self.numeroDepto)) 
+			cursor.execute("SELECT * FROM Renta_Depto%d ORDER BY numeroRenta DESC" %(self.numeroDepto)) 
 			historial = str(cursor.fetchall())
 		except Exception as ex:
 			print("Ocurrió el siguiente error al leer de la base de dat:")

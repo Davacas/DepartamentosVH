@@ -6,7 +6,7 @@ from guis import *
 
 #Se inicializa la base y se lanza la interfaz principal
 def main():
-	inicializarBase()
+	Database().inicializarBase()
 	VistaPrincipal()
 
 if __name__ == "__main__":
