@@ -117,7 +117,7 @@ class VistaRentar():
 		Label(self.ventanaRentar, text = "Fecha de entrada: ", font = "Default 14").grid(row = 10, column = 0, sticky="e")
 		Label(self.ventanaRentar, text = "Día: ", font = "Default 12").grid(row = 10, column = 1, sticky="e")
 		self.eDiaEntrada = ttk.Combobox(self.ventanaRentar, state="readonly", font = "Default 12", width = 5)
-		self.eDiaEntrada["values"] = list(range(2000, 2100))
+		self.eDiaEntrada["values"] = list(range(1, 31))
 		self.eDiaEntrada.grid(row = 10, column = 2, columnspan = 1, padx=(0,10), sticky="W")
 		self.eDiaEntrada.current(17)
 		Label(self.ventanaRentar, text = "Mes: ", font = "Default 12").grid(row = 10, column = 3, sticky="e")
@@ -169,8 +169,11 @@ class VistaRentar():
 	def guardarDatos(self):
 		# conexion = sqlite3.connect("departamentosVH.db")
 		# cursor = conexion.cursor()
-		fechaEntrada = self.eDiaEntrada.get() + "-" + str(self.eMesEntrada.current() + 1) + "-" +self.eAnioEntrada.get()
-		fechaSalida = self.eDiaSalida.get() + "-" + str(self.eMesSalida.current() + 1) + "-" + self.eAnioSalida.get()
+		fechaEntrada = self.eAnioEntrada.get() + "-" + str(self.eMesEntrada.current() + 1).zfill(2) + "-" + self.eDiaEntrada.get()
+		fechaSalida = self.eAnioSalida.get() + "-" + str(self.eMesSalida.current() + 1).zfill(2) + "-" + self.eDiaSalida.get()
+		print(fechaEntrada)
+		print(fechaSalida)		
+
 		try:
 			Database().insertarRenta(
 				self.numeroDepto,
