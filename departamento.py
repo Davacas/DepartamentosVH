@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=<UTF-8>
+
 class Departamento():
 	def __init__(self, numeroDepto):
 		self.numeroDepto = numeroDepto
